@@ -1,8 +1,6 @@
 public class MenstrualApp {
 public static void main(String[] args){
 
-System.out.println(getFlowDate(8, 21, 28));
-System.out.println(getOvulationDay(8, 21, 28));
 }
 
 
@@ -19,23 +17,50 @@ public static int getDaysIn(int numberOfMonth){
 	return numberOfDaysPerMonth;
 }
 
-public static int getFlowDate(int numberOfMonth, int startDayOfLastPeriod, int lengthOfLastCycle){
+public static String getFlowDate(int numberOfMonth, int startDayOfLastPeriod, int lengthOfLastCycle){
 	int numberOfDaysInMonth = getDaysIn(numberOfMonth);
-	int nextFlowDay = lengthOfLastCycle - (numberOfDaysInMonth - startDayOfLastPeriod);
-	if (nextFlowDay < 0){
-		nextFlowDay =  numberOfDaysInMonth + nextFlowDay;
-		return nextFlowDay;
-	}else{
-		return nextFlowDay;
-	}
-}
+	int nextFlowDay = startDayOfLastPeriod + lengthOfLastCycle;
+	int nextFlowMonth = numberOfMonth;
 
+	if (nextFlowDay > numberOfDaysInMonth) {
+		nextFlowDay -= numberOfDaysInMonth;
+		nextFlowMonth++;
+		if (nextFlowMonth > 12) {
+			nextFlowMonth = 1;
+            }
+        }
 
-public static int getOvulationDay(int numberOfMonth, int startDayOfLastPeriod, int lengthOfLastCycle){
-	int ovulationDay = getFlowDate(numberOfMonth, startDayOfLastPeriod, lengthOfLastCycle) - (lengthOfLastCycle / 2);
+        return nextFlowDay + "/" + nextFlowMonth;
+    }
+
+public static int getOvulationDay(int nextFlowDay, int nextFlowMonth, int lengthOfLastCycle) {
+	int ovulationDay = nextFlowDay - (lengthOfLastCycle / 2);
+	int ovulationMonth = nextFlowMonth;
+
+	if (ovulationDay <= 0) {
+		ovulationMonth--;
+		int daysInPreviousMonth = getDaysIn(ovulationMonth);
+		ovulationDay += daysInPreviousMonth;
+        }
 	return ovulationDay;
-	
 }
+
+public static int getLutealPhase(int nextFlowDay, int nextFlowMonth, int ovulationDay, int ovulationMonth) {
+	int lutealPhase;
+	if (nextFlowMonth == ovulationMonth) {
+		lutealPhase = nextFlowDay - ovulationDay;
+		return lutealPhase;
+	} else {
+		int daysInOvulationMonth = getDaysIn(ovulationMonth);
+		lutealPhase = daysInOvulationMonth - ovulationDay + nextFlowDay;
+		return lutealPhase;
+        }
+
+}
+
+
+
+
 
 
 
