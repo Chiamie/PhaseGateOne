@@ -4,6 +4,8 @@ public class MenstrualApp {
 public static void main(String[] args){
 Scanner input = new Scanner(System.in);
 
+boolean menstrualAppOptions = true;
+while(menstrualAppOptions){
 
 
 String menu = """
@@ -11,11 +13,15 @@ String menu = """
 			2. Check next ovulation date
 			3. Check safe period
 			4. Check fertile period
+			0. Exit
 		""";
 System.out.println(menu);
 System.out.println("Choose an option: ");
 int option = input.nextInt();
-
+if (option == 0) {
+	menstrualAppOptions = false;
+	continue;
+}
 
 System.out.println("Enter the month number: ");
 int month = input.nextInt();
@@ -44,9 +50,10 @@ switch(option){
 		ovulationDate = getOvulationDay(flowDate, lengthOfFlow);
 		System.out.println(getFertilePeriod(ovulationDate));
 		break;
+	
 }
 }
-
+}
 
 
 public static int getDaysIn(int numberOfMonth){
@@ -134,4 +141,6 @@ public static String getFertilePeriod(String ovulationDate) {
 	}
 	return "Fertile period: " + fertileWindowStart + " to " + fertileWindowEnd + " of month " + ovulationMonth;
 }
+
+
 }
