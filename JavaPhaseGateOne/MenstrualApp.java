@@ -1,10 +1,8 @@
 public class MenstrualApp {
 public static void main(String[] args){
 
-int numberOfMonth = 1;
-int numberOfDays = getDaysIn(numberOfMonth);
-String startDay = "Mon";
-System.out.println(displayCalendar(numberOfDays, startDay));
+System.out.println(getFlowDate(8, 21, 28));
+System.out.println(getOvulationDay(8, 21, 28));
 }
 
 
@@ -21,44 +19,25 @@ public static int getDaysIn(int numberOfMonth){
 	return numberOfDaysPerMonth;
 }
 
-
-
-
-public static String getDaysOfWeek(){
-	String[] daysOfTheWeek = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};	
-	return String.join("\t", daysOfTheWeek);
-}
-
-public static int getStartDayIndex(String startDay){
-	String[] daysOfTheWeek = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};	
-	int startIndex = 0;
-	for(int number = 1; number < daysOfTheWeek.length ; number++){
-		if(startDay.equals(daysOfTheWeek[number])) 
-		startIndex = number;
+public static int getFlowDate(int numberOfMonth, int startDayOfLastPeriod, int lengthOfLastCycle){
+	int numberOfDaysInMonth = getDaysIn(numberOfMonth);
+	int nextFlowDay = lengthOfLastCycle - (numberOfDaysInMonth - startDayOfLastPeriod);
+	if (nextFlowDay < 0){
+		nextFlowDay =  numberOfDaysInMonth + nextFlowDay;
+		return nextFlowDay;
+	}else{
+		return nextFlowDay;
 	}
-	return startIndex;
 }
 
 
-public static String displayCalendar(int numberOfDays, String startDay){
-	System.out.println(getDaysOfWeek());
-	int startIndex = getStartDayIndex(startDay);
-	String calendar = "";
-	for (int index = 0; index < startIndex; index++) {
-		calendar += "\t";     	
-       }
-
-	for(int number = 1; number <= numberOfDays; number++){
-		calendar += String.format("%d \t", number);
-		if((number + startIndex) % 7 == 0) {
-			calendar += "\n";
-		}
-			
-	}
-
-	return calendar;
-
+public static int getOvulationDay(int numberOfMonth, int startDayOfLastPeriod, int lengthOfLastCycle){
+	int ovulationDay = getFlowDate(numberOfMonth, startDayOfLastPeriod, lengthOfLastCycle) - (lengthOfLastCycle / 2);
+	return ovulationDay;
+	
 }
+
+
 
 
 
