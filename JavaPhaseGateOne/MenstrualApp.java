@@ -33,7 +33,7 @@ public static String getFlowDate(int numberOfMonth, int startDayOfLastPeriod, in
         return nextFlowDay + "/" + nextFlowMonth;
     }
 
-public static int getOvulationDay(int nextFlowDay, int nextFlowMonth, int lengthOfLastCycle) {
+public static String getOvulationDay(int nextFlowDay, int nextFlowMonth, int lengthOfLastCycle) {
 	int ovulationDay = nextFlowDay - (lengthOfLastCycle / 2);
 	int ovulationMonth = nextFlowMonth;
 
@@ -42,7 +42,7 @@ public static int getOvulationDay(int nextFlowDay, int nextFlowMonth, int length
 		int daysInPreviousMonth = getDaysIn(ovulationMonth);
 		ovulationDay += daysInPreviousMonth;
         }
-	return ovulationDay;
+	return ovulationDay + "/" + ovulationMonth;
 }
 
 public static int getLutealPhase(int nextFlowDay, int nextFlowMonth, int ovulationDay, int ovulationMonth) {
@@ -55,30 +55,28 @@ public static int getLutealPhase(int nextFlowDay, int nextFlowMonth, int ovulati
 		lutealPhase = daysInOvulationMonth - ovulationDay + nextFlowDay;
 		return lutealPhase;
         }
-
 }
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
+public static String getFertilePeriod(String ovulationDate) {
+	String[] parts = ovulationDate.split("/");
+	int ovulationDay = Integer.parseInt(parts[0]);
+	int fertileWindowStart = ovulationDay - 5;
+	int fertileWindowEnd = ovulationDay + 1;
+	int ovulationMonth = Integer.parseInt(parts[1]);
+	
+	if (fertileWindowStart <= 0) {
+		ovulationMonth--;
+		if (ovulationMonth < 1) {
+			ovulationMonth = 12;
+		}
+		fertileWindowStart += getDaysIn(ovulationMonth);
+	}
+	if (fertileWindowEnd > getDaysIn(ovulationMonth)) {
+		fertileWindowEnd -= getDaysIn(ovulationMonth);
+		ovulationMonth++;
+		if (ovulationMonth > 12) {
+			ovulationMonth = 1;
+		}
+	}
+	return "Fertile period: " + fertileWindowStart + " to " + fertileWindowEnd + " of month " + ovulationMonth;
+}
 }

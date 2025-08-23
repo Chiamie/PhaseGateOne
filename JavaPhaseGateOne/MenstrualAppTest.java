@@ -28,30 +28,56 @@ public void testgetFlowDateFunctionWhenNextFlowDayIsGreaterThanNumberOfDaysInMon
 }
 
 @Test	
-public void testGetOvulationDayFunction(){
+public void testGetOvulationDayFunctionWhenOvulationDayIsGreaterThanZero(){
 	int nextFlowDay = 18;
 	int nextFlowMonth = 9;
 	int lengthOfLastCycle = 25;
 		
 	MenstrualApp menstrualApp = new MenstrualApp();
-	int result = menstrualApp.getOvulationDay(nextFlowDay, nextFlowMonth, lengthOfLastCycle);
+	String result = menstrualApp.getOvulationDay(nextFlowDay, nextFlowMonth, lengthOfLastCycle);
 	
-	assertEquals (result, 6);
+	assertEquals (result, "6/9");
 
 }
 
 @Test	
-public void testGetOvulationDayFunctionWhenOvulationIsGreaterThanZero(){
-	int nextFlowDay = 18;
+public void testGetOvulationDayFunctionWhenOvulationDayIsLessThanZero(){
+	int nextFlowDay = 5;
 	int nextFlowMonth = 9;
-	int lengthOfLastCycle = 25;
+	int lengthOfLastCycle = 28;
 		
 	MenstrualApp menstrualApp = new MenstrualApp();
-	int result = menstrualApp.getOvulationDay(nextFlowDay, nextFlowMonth, lengthOfLastCycle);
+	String result = menstrualApp.getOvulationDay(nextFlowDay, nextFlowMonth, lengthOfLastCycle);
 	
-	assertEquals (result, 6);
+	assertEquals (result, "22/8");
 
 }
 
+@Test	
+public void testGetLutealPhaseFunction1(){
+	int nextFlowDay = 5;
+	int nextFlowMonth = 9;
+	int ovulationDay = 22;
+	int ovulationMonth = 8;
+		
+	MenstrualApp menstrualApp = new MenstrualApp();
+	int result = menstrualApp.getLutealPhase(nextFlowDay, nextFlowMonth, ovulationDay, ovulationMonth);
+	
+	assertEquals (result, 14);
 
+}
+
+@Test	
+public void testGetLutealPhaseFunction2(){
+	int nextFlowDay = 18;
+	int nextFlowMonth = 9;
+	int ovulationDay = 4;
+	int ovulationMonth = 9;
+		
+	MenstrualApp menstrualApp = new MenstrualApp();
+	int result = menstrualApp.getLutealPhase(nextFlowDay, nextFlowMonth, ovulationDay, ovulationMonth);
+	
+	assertEquals (result, 14);
+
+}
 } 
