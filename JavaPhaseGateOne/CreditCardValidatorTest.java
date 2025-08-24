@@ -27,5 +27,71 @@ public void testdoubleDigitsAtEvenIndexInFunction(){
 	assertEquals(result, 24);
 							
 }
+
+@Test	
+public void testdoubleDigitsAtEvenIndexInFunction1(){
+	int[] cardNumberAsArray = {4, 3, 8, 8, 5, 7, 6, 0, 1, 8, 4, 0, 2, 6, 2, 6};
+		
+	CreditCardValidator creditCardValidator = new CreditCardValidator();
+	int result = creditCardValidator.doubleDigitsAtEvenIndexIn(cardNumberAsArray);
+	
+	
+	assertEquals(result, 37);
+							
 }
+
+@Test	
+public void testGetSumOfDigitAtOddIndexOfFunction(){
+	int[] cardNumberAsArray = {4, 3, 8, 8, 5, 7, 6, 0, 1, 8, 4, 0, 2, 6, 2, 6};
+		
+	CreditCardValidator creditCardValidator = new CreditCardValidator();
+	int result = creditCardValidator.getSumOfDigitAtOddIndexOf(cardNumberAsArray);
+	
+	
+	assertEquals(result, 38);
+
+}
+
+@Test	
+public void testGetSumOfDigitAtOddIndexOfFunction1(){
+	int[] cardNumberAsArray = {5, 3, 9, 9, 8, 3, 1, 6, 1, 9, 6, 9, 0, 4, 0, 3};
+		
+	CreditCardValidator creditCardValidator = new CreditCardValidator();
+	int result = creditCardValidator.getSumOfDigitAtOddIndexOf(cardNumberAsArray);
+	
+	
+	assertEquals(result, 46);
+							
+}
+
+@Test	
+public void testCheckDivisibilityBy10Function(){
+	int total = 46 + 24;
+		
+	CreditCardValidator creditCardValidator = new CreditCardValidator();
+	String result = creditCardValidator.checkDivisibilityBy10(total);
+	
+	
+	assertEquals(result, "valid");
+							
+}
+
+@Test	
+public void testCheckDivisibilityBy10Function1(){
+	int total = 38 + 37;
+		
+	CreditCardValidator creditCardValidator = new CreditCardValidator();
+	String result = creditCardValidator.checkDivisibilityBy10(total);
+	
+	
+	assertEquals(result, "invalid");
+							
+}
+
+}
+
+
+
+
+
 

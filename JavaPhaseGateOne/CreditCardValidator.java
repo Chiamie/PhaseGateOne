@@ -32,7 +32,24 @@ public static int doubleDigitsAtEvenIndexIn(int[] cardNumberAsArray){
 	}
 	return sum;
 }
+	
+public static int getSumOfDigitAtOddIndexOf(int[] cardNumberAsArray){
+	int sum = 0;
+	for(int index = cardNumberAsArray.length - 1; index >= 0; index--){
+		if(index % 2 != 0){
+			sum += cardNumberAsArray[index];
+		}
+	}
+	return sum;
 
+}
+
+public static String checkDivisibilityBy10(int total){
+	if(total % 10 == 0){
+		return "valid";
+	} else
+		return "invalid";
+}
 
 
 
