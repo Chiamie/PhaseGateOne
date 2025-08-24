@@ -72,7 +72,7 @@ public void testCheckDivisibilityBy10Function(){
 	String result = creditCardValidator.checkDivisibilityBy10(total);
 	
 	
-	assertEquals(result, "valid");
+	assertEquals(result, "Valid");
 							
 }
 
@@ -84,12 +84,12 @@ public void testCheckDivisibilityBy10Function1(){
 	String result = creditCardValidator.checkDivisibilityBy10(total);
 	
 	
-	assertEquals(result, "invalid");
+	assertEquals(result, "Invalid");
 							
 }
 
 @Test	
-public void testCheckTypeOfCard(){
+public void testCheckTypeOfCardFuncyion(){
 	String cardNumber = "5399831619690403";
 		
 	CreditCardValidator creditCardValidator = new CreditCardValidator();
@@ -100,11 +100,43 @@ public void testCheckTypeOfCard(){
 							
 }
 
+@Test	
+public void testCheckCardNumberLengthFunction(){
+	String cardNumber = "5399831619690403";
+		
+	CreditCardValidator creditCardValidator = new CreditCardValidator();
+	int result = creditCardValidator.checkCardNumberLength(cardNumber);
+	
+	
+	assertEquals(result, 16);
+							
+}
+
+@Test	
+public void testGetValidityStatusOfFunction(){
+	String cardNumber = "5399831619690404";
+		
+	CreditCardValidator creditCardValidator = new CreditCardValidator();
+	String result = creditCardValidator.getValidityStatusOf(cardNumber);
+	
+	
+	assertEquals(result, "Invalid");
 
 }
 
+@Test	
+public void testGetValidityStatusOfFunction1(){
+	String cardNumber = "4388576018410707";
+		
+	CreditCardValidator creditCardValidator = new CreditCardValidator();
+	String result = creditCardValidator.getValidityStatusOf(cardNumber);
+	
+	
+	assertEquals(result, "Valid");
 
+}
 
+}
 
 
 

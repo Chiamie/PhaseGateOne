@@ -3,12 +3,25 @@ import java.util.Scanner;
 public class CreditCardValidator{
 public static void main(String[] args){
 
+Scanner input = new Scanner(System.in);
+System.out.println("Hello, Kindly Enter Card details to verify");
 
-System.out.println(checkTypeOfCard("5399831619690403"));
+String cardNumber = input.next();
+String cardType = checkTypeOfCard(cardNumber);
+String cardLength = checkCardNumberLength(cardNumber);
+String validityStatus = getValidityStatusOf(cardNumber);
 
-
+if(cardType.startsWith("Invalid") || cardLength.startsWith("Invalid")) {
+	System.out.println("Invalid Card Details");
+} else {
+	System.out.println("Credit Card Type: " + cardType);
+	System.out.println("Credit Card Number: " + cardNumber);
+	System.out.println("Credit Digit Length: " + cardLength);
+	System.out.println("Credit Digit Validity Status: " + validityStatus);
+}
 
 }
+
 
 public static String checkTypeOfCard(String cardNumber){
 	if (cardNumber.charAt(0) == '4')
@@ -23,6 +36,14 @@ public static String checkTypeOfCard(String cardNumber){
 		return "Invalid card";
 }
 
+public static String checkCardNumberLength(String cardNumber){
+	if ((cardNumber.length() >= 13) && (cardNumber.length() <= 16)){
+		String cardLength = cardNumber.length() + "";
+		return cardLength;
+	}else
+		return "Invalid Card Number";
+	
+}
 
 
 
@@ -69,13 +90,20 @@ public static int getSumOfDigitAtOddIndexOf(int[] cardNumberAsArray){
 
 public static String checkDivisibilityBy10(int total){
 	if(total % 10 == 0){
-		return "valid";
+		return "Valid";
 	} else
-		return "invalid";
+		return "Invalid";
 }
 
+public static String getValidityStatusOf(String cardNumber){
 
+	int[] cardNumberAsArray = getArrayFormOf(cardNumber);
+	int evenIndexSum = doubleDigitsAtEvenIndexIn(cardNumberAsArray);
+	int oddIndexSum = getSumOfDigitAtOddIndexOf(cardNumberAsArray);
+	int total = evenIndexSum + oddIndexSum;
+	return checkDivisibilityBy10(total);
 
+}
 
 
 
