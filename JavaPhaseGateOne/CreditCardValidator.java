@@ -1,11 +1,34 @@
+import java.util.Scanner;
+
 public class CreditCardValidator{
 public static void main(String[] args){
 
 
+System.out.println(checkTypeOfCard("5399831619690403"));
 
 
 
 }
+
+public static String checkTypeOfCard(String cardNumber){
+	if (cardNumber.charAt(0) == '4')
+		return "Visa Card";
+	else if (cardNumber.charAt(0) == '5')
+		return "MasterCard";
+	else if (cardNumber.charAt(0) == ('6'))
+		return "Discover cards";
+	else if ((cardNumber.charAt(0) == '3') && (cardNumber.charAt(1) == '7'))
+		return "American Express Card";
+	else
+		return "Invalid card";
+}
+
+
+
+
+
+
+
 
 public static int[] getArrayFormOf(String cardNumber){
 	String[] cardNumberAsStringArray = cardNumber.split("");

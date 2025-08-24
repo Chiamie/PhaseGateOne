@@ -88,6 +88,19 @@ public void testCheckDivisibilityBy10Function1(){
 							
 }
 
+@Test	
+public void testCheckTypeOfCard(){
+	String cardNumber = "5399831619690403";
+		
+	CreditCardValidator creditCardValidator = new CreditCardValidator();
+	String result = creditCardValidator.checkTypeOfCard(cardNumber);
+	
+	
+	assertEquals(result, "MasterCard");
+							
+}
+
+
 }
 
 
