@@ -11,7 +11,7 @@ String cardType = checkTypeOfCard(cardNumber);
 String cardLength = checkCardNumberLength(cardNumber);
 String validityStatus = getValidityStatusOf(cardNumber);
 
-if(cardType.startsWith("Invalid") || cardLength.startsWith("Invalid")) {
+if(cardType.startsWith("Invalid") && cardLength.startsWith("Invalid")) {
 	System.out.println("Invalid Card Details");
 } else {
 	System.out.println("Credit Card Type: " + cardType);
