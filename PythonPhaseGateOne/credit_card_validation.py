@@ -34,6 +34,22 @@ def check_card_number_length(card_number):
 	else:
 		return "Invalid Card Number"
 	
+def get_list_form_of(card_number):
+	if type(card_number) != str:
+		raise TypeError("card_number must be a string")
+	if card_number == "":
+		raise ValueError("card_number cannot be empty")
+	for item in card_number:
+		if not item.isdigit():
+			raise ValueError("card_number must be all numeric strings")
+
+	card_number_as_list = []
+	card_number_as_string_in_list = list(card_number)
+	for item in card_number_as_string_in_list:
+		card_number_as_list.append(int(item))
+	return card_number_as_list		
+
+
 
 
 
