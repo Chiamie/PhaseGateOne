@@ -93,6 +93,19 @@ def get_sum_of_digit_at_odd_index_of(card_number_as_list):
 			sum += card_number_as_list[number]
 	return sum
 
+def check_divisibility_by_ten(total):
+	if type(total) != int:
+		raise TypeError("total must be an Integer")
+	if total == 0:
+		raise ValueError("total cannot be empty")
+	if total < 0:
+		raise ValueError("total cannot be negative")
+	if total % 10 == 0:
+		return "Valid"
+	else:
+		return "Invalid"
+
+
 
 
 
