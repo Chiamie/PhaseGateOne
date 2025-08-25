@@ -49,7 +49,29 @@ def get_list_form_of(card_number):
 		card_number_as_list.append(int(item))
 	return card_number_as_list		
 
+def double_digits_at_even_index_in(card_number_as_list):
+	if type(card_number_as_list) != list:
+		raise TypeError("card_number_as_list must be a List")
+	if card_number_as_list == "":
+		raise ValueError("card_number_as_list cannot be empty")
+	if all(type(item) != int for item in card_number_as_list):
+			raise ValueError("list_of_numbers must all be integers")
+	if any(type(item) != int for item in card_number_as_list):
+			raise ValueError("list_of_numbers must all be integers")
+	for item in card_number_as_list:
+		if item < 0:
+			raise ValueError("item must all be integers")
 
+	sum = 0
+	for number in range((len(card_number_as_list) - 1), -1, -1):
+		product = 1;
+		if number % 2 == 0:
+			if card_number_as_list[number] % 10 != 0:
+				product = card_number_as_list[number] * 2
+				sum += (product % 10) + (product // 10)
+			else:
+				sum += card_number_as_list[number] * 2
+	return sum
 
 
 

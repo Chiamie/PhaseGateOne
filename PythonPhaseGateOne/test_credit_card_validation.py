@@ -3,6 +3,12 @@ import inspect
 from credit_card_validation import check_type_of_card
 from credit_card_validation import check_card_number_length
 from credit_card_validation import get_list_form_of
+from credit_card_validation import double_digits_at_even_index_in
+
+
+
+
+
 
 
 class TestCheckTypeOfCardFunction(unittest.TestCase):
@@ -56,8 +62,35 @@ class TestGetListForm0fFunction(unittest.TestCase):
 		result = get_list_form_of("5399831619690404")
 		self.assertEqual(result, [5, 3, 9, 9, 8, 3, 1, 6, 1, 9, 6, 9, 0, 4, 0, 4])
 
-
-	
+class TestGetListForm0fFunction(unittest.TestCase):
+	def test_that_the_double_digits_at_even_index_in_function_accepts_1_argument(self):
+		list_of_numbers = [1, 5, 3, 7, 8, 6]
+		result = double_digits_at_even_index_in(list_of_numbers)
+		self.assertTrue(list_of_numbers, list)
+	def test_that_the_double_digits_at_even_index_in_function_raises_validation_when_argument_is_a_float(self):
+		self.assertRaises(TypeError, double_digits_at_even_index_in, 32.8)
+	def test_that_the_double_digits_at_even_index_in_function_raises_validation_when_argument_is_a_list(self):
+		self.assertRaises(TypeError, double_digits_at_even_index_in, "not a list")
+	def test_that_the_double_digits_at_even_index_in_function_raises_validation_when_argument_is_a_number(self):
+		self.assertRaises(TypeError, double_digits_at_even_index_in, 98)
+	def test_that_the_double_digits_at_even_index_in_function_raises_validation_if_list_has_negative_number(self):
+		list_of_integers = [1, 5, 3, -7, 5, 8, 6]
+		self.assertRaises(ValueError, double_digits_at_even_index_in, list_of_integers)
+	def test_that_the_double_digits_at_even_index_in_function_raises_validation_if_list_has_float_numbers(self):
+		list_of_integers = [1.5, 5.4, 3.2, -7.7, 5.3, 8.5, 6.8]
+		self.assertRaises(ValueError, double_digits_at_even_index_in, list_of_integers)
+	def test_that_the_double_digits_at_even_index_in_function_raises_validation_if_list_has_numeric_and_non_numeric_items(self):
+		list_of_integers = ['1','awele', '3', -7, 'plate', 8, '6']
+		self.assertRaises(ValueError, double_digits_at_even_index_in, list_of_integers)
+	def test_that_the_double_digits_at_even_index_in_function_raises_validation_if_input_is_not_a_list_of_numbers(self):
+		list_of_integers = ['awele', 'nutrient', 'plate']
+		self.assertRaises(ValueError, double_digits_at_even_index_in, list_of_integers)
+	def test_that_the_double_digits_at_even_index_in_function_raises_validation_when_argument_is_empty(self):
+		list_of_integers = []
+		self.assertRaises(ValueError, double_digits_at_even_index_in, list_of_integers)
+	def test_that_the_double_digits_at_even_index_in_function_returns_correct_result(self):
+		result = double_digits_at_even_index_in([5, 3, 9, 9, 8, 3, 1, 6, 1, 9, 6, 9, 0, 4, 0, 4])
+		self.assertEqual(result, 24)
 	
 	
 	
