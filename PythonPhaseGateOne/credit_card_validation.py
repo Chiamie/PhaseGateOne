@@ -106,6 +106,34 @@ def check_divisibility_by_ten(total):
 		return "Invalid"
 
 
+def get_validity_status_of(card_number):
+	if type(card_number) != str:
+		raise TypeError("card_number must be a string")
+	if card_number == "":
+		raise ValueError("card_number cannot be empty")
+	for item in card_number:
+		if not item.isdigit():
+			raise ValueError("card_number must be all numeric strings")
+
+	card_number_as_list = get_list_form_of(card_number)
+	even_index_sum = double_digits_at_even_index_in(card_number_as_list)
+	odd_index_sum = get_sum_of_digit_at_odd_index_of(card_number_as_list)
+	total = even_index_sum + odd_index_sum
+	return check_divisibility_by_ten(total)
+
+
+card_number = input("Hello, Kindly Enter Card details to verify: \n")
+card_type = check_type_of_card(card_number);
+card_length = check_card_number_length(card_number);
+validity_status = get_validity_status_of(card_number);
+
+if card_type.startswith("Invalid") and card_length.startswith("Invalid"):
+	print("Invalid Card Details")
+else:
+	print("Credit Card Type: " + card_type)
+	print("Credit Card Number: " + card_number)
+	print("Credit Digit Length: " + card_length)
+	print("Credit Digit Validity Status: " + validity_status)
 
 
 
