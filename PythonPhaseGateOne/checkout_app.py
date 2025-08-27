@@ -1,9 +1,11 @@
+from datetime import datetime
+
 def get_product_details(item_name, item_quantity, item_price, item_total):
-	let product_details = {};
-	product_details.ITEM = item_name;
-	product_details.QTY = item_quantity;
-	product_details.PRICE = item_price;
-	product_details.TOTAL = item_total;
+	product_details = {}
+	product_details['ITEM'] = item_name;
+	product_details['QTY'] = item_quantity;
+	product_details['PRICE'] = item_price;
+	product_details['TOTAL'] = item_total;
 	return product_details
 
 
@@ -16,110 +18,109 @@ def get_sub_total(user_cart):
 	return sum
 
 	
-def get_discount_of(sub_total, discount){
-	discount_amount = sub_total * (discount / 100);
-	return discount_amount;
+def get_discount_of(sub_total, discount):
+	discount_amount = sub_total * (discount / 100)
+	return discount_amount
 
 
 def get_vat_of(sub_total):
 	vat_amount = sub_total * (17.50 / 100)
-		return vat_amount
+	return vat_amount
 
 
 
-def get_bill_total(sub_total, discount_amount, vat_amount){
-	return (sub_total - discount_amount) + vat_amount;
-}
-
-def get_balance(amount_received, bill_total){
-	return bill_total - amount_received;
-}
+def get_bill_total(sub_total, discount_amount, vat_amount):
+	return (sub_total - discount_amount) + vat_amount
 
 
-
-//let productDetails = {};
-userCart = []
+def get_balance(amount_received, bill_total):
+	return amount_received -  bill_total
 
 
 
-userName = input("What is the customer's Name? ")
+
+
+user_cart = []
+
+
+
+user_name = input("What is the customer's Name? ")
 
 item_name = input("What did the customer buy? ")
 item_quantity = int(input("How many pieces? "))
-item_price = int(input("How much per unit? ")
-item_total = item_price * item_quantity;
+item_price = int(input("How much per unit? "))
+item_total = item_price * item_quantity
 
 
-user_cart.append(get_product_details(item_name, item_quantity, item_price, item_total)
+user_cart.append(get_product_details(item_name, item_quantity, item_price, item_total))
 add_more_items = input("Add more Items? ")
-while(add_more_items.lower() == "yes"){
-	item_name = input("What did the customer buy? ");
-	item_quantity = int(input("How many pieces? "));
-	item_price = int(input("How much per unit? "));
-	item_total = itemPrice * itemQuantity;
-	userCart.append(get_product_details(item_name, item_quantity, item_price, item_total);
+while add_more_items.lower() == "yes":
+	item_name = input("What did the customer buy? ")
+	item_quantity = int(input("How many pieces? "))
+	item_price = int(input("How much per unit? "))
+	item_total = item_price * item_quantity
+	user_cart.append(get_product_details(item_name, item_quantity, item_price, item_total))
 	add_more_items = input("Add more Items? ")
-}
 
-cashierName = prompt("What is your name? ");
-discount = prompt("How much discount will he get? ");
-let subTotal = getSubTotal(userCart);
-let discountAmount = getDiscountOf(subTotal, discount);
-let VATAmount = getVATOf(subTotal);
-let billTotal = getBillTotal(subTotal, discountAmount, VATAmount);
 
-let nameOfStore = `SEMICOLON STORES
+cashier_name = input("What is your name? ")
+discount = int(input("How much discount will he get? "))
+sub_total = get_sub_total(user_cart)
+discount_amount = get_discount_of(sub_total, discount)
+vat_amount = get_vat_of(sub_total)
+bill_total = get_bill_total(sub_total, discount_amount, vat_amount)
+
+name_of_store = """SEMICOLON STORES
 				MAIN BRANCH
-			`;
-let storeAddress = "312, HERBERT MACAULAY WAY, SABO YABA, LAGOS"
-let contact = "03293828343";
-let date = new Date();
+			"""
+store_address = "312, HERBERT MACAULAY WAY, SABO YABA, LAGOS"
+contact = "03293828343"
+current_datetime = datetime.now()
 
 
-console.log(nameOfStore);
-console.log("LOCATION: " + storeAddress);
-console.log("TEL: " + contact);
-console.log("Date: " + date);
-console.log("Cashier: " + cashierName);
+print(name_of_store)
+print("LOCATION: " + store_address)
+print("TEL: " + contact)
+print(f'Date {current_datetime}')
+print("Cashier: " + cashier_name)
 
-console.log("Customer Name: " + userName);
-
-
+print("Customer Name: " + user_name)
 
 
-console.log("--".repeat(10));
-let columns = Object.keys(userCart[0]);
-console.log("\t".repeat(5) + columns.join("\t"));
-userCart.forEach(row => {console.log("\t".repeat(4) + Object.values(row).join("\t"));
-});
-console.log("\t".repeat(4) + "Sub Total" + subTotal);
-console.log("\t".repeat(4) + "Discount" + discountAmount);
-console.log("\t".repeat(4) + "VAT @ 17.50%" + VATAmount);
-console.log("\t".repeat(4) + "Bill Total" + billTotal);
+ 
+print("--" * 10)
+columns = user_cart[0].keys()
+print("\t" * 5 + "\t".join(columns))
+for row in user_cart:
+	print("\t".join(str(value) for value in row.values()))
 
-console.log("THIS IS NOT A RECEIPT KINDLY PAY" + billTotal);
+print("\t" * 4 + "Sub Total", sub_total)
+print("\t" * 4 + "Discount", discount_amount)
+print("\t" * 4 + "VAT @ 17.50%", vat_amount)
+print("\t" * 4 + "Bill Total", bill_total)
 
-
+print("THIS IS NOT A RECEIPT KINDLY PAY", bill_total)
 
 
 
-let amountReceived = prompt("How much did the customer give to you? ");
-let balance = getBalance(amountReceived, billTotal)
 
-console.log("--".repeat(10));
-columns = Object.keys(userCart[0]);
-console.log("\t".repeat(5) + columns.join("\t"));
-userCart.forEach(row => {console.log("\t".repeat(4) + Object.values(row).join("\t"));
-});
-console.log("\t".repeat(4) + "Sub Total: " + subTotal);
-console.log("\t".repeat(4) + "Discount: " + discountAmount);
-console.log("\t".repeat(4) + "VAT @ 17.50%: " + VATAmount);
-console.log("\t".repeat(4) + "Bill Total: " + billTotal);
-console.log("\t".repeat(4) + "Amount Paid: " + amountReceived);
-console.log("\t".repeat(4) + "Balance: " + balance);
+amount_received = int(input("How much did the customer give to you? "))
+balance = get_balance(amount_received, bill_total)
 
+print("--" * 10)
+columns = user_cart[0].keys()
+print("\t" * 5 + "\t".join(columns))
+for row in user_cart:
+	print("\t".join(str(value) for value in row.values()))
 
-console.log("THANK YOU FOR YOUR PATRONAGE");
+print("\t" * 4 + "Sub Total: ", sub_total)
+print("\t" * 4 + "Discount: ", discount_amount)
+print("\t" * 4 + "VAT @ 17.50%: ", vat_amount)
+print("\t" * 4 + "Bill Total: ", bill_total)
+print("\t" * 4 + "Amount Paid: ", amount_received)
+print("\t" * 4 + "Balance: ", balance)
+
+print("THANK YOU FOR YOUR PATRONAGE")
 
 
 
