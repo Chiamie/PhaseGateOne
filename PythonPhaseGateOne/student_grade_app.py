@@ -30,24 +30,7 @@ def get_student_position(class_scores, class_position_list):
 				student['Position'] = position
 				position += 1
 	return class_scores
-
-				
-def get_highest_score_of_subject1(class_scores):
-	largest = 0
-	smallest = -1
-	count = 0	
-	for student in class_scores:
-		if student['subject1'] > largest:
-			largest = student['subject1']	
-	return class_scores.index(student)
 	
-def get_smallest_score_of_subject1(class_scores):
-	smallest = -1
-	count = 0	
-	for student in class_scores:
-		if student['subject1'] < smallest:
-			smallest = student['subject1']	
-	return class_scores.index(student)
 
 def get_pass_and_fail_count_of_subject1(class_scores):
 	pass_count = 0
@@ -72,15 +55,34 @@ def get_total_score_of_subjects_in(class_scores):
 	return subject_sums
 
 def get_highest_score_of_subjects(class_scores):
-	largest = 0
-	smallest = -1
-	count = 0	
+	subject_max = {}
+	subject_max_student = {}
 	for student in class_scores:
-		if student['subject1'] > largest:
-			largest = student['subject1']	
-	return class_scores.index(student)
+		for subject, score in student.items():
+			if subject not in ['Name', 'Total', 'Average', 'Position']:
+				if subject in subject_max:
+					if score > subject_max[subject]:
+						subject_max[subject] = score
+						subject_max_student[subject] = student
+					else:
+						subject_max[subject] = score
+						subject_max_student[subject] = student
+	return subject_max, subject_max_student
 
-
+def get_smallest_score_of_subject1(class_scores):
+	subject_min = {}
+	subject_min_student = {}
+	for student in class_scores:
+		for subject, score in student.items():
+			if subject not in ['Name', 'Total', 'Average', 'Position']:
+				if subject in subject_min:
+					if score < subject_min[subject]:
+						subject_min[subject] = score
+						subject_min_student[subject] = student
+					else:
+						subject_min[subject] = score
+						subject_min_student[subject] = student
+	return subject_min, subject_min_student
 
 
 
@@ -110,14 +112,7 @@ print(student1)
 class_position_list = get_class_position_of(student1)
 each_student_position = get_student_position(student1, class_position_list)
 print(each_student_position)
-subject_total = get_total_score_of_subjects_in(student1)
-
-
-
-
-
-subject1_total_score = subject_total.get('subject1')
-subject2_total_score = 
+print(get_total_score_of_subjects_in(student1))
 
 
 
@@ -127,24 +122,11 @@ subject2_total_score =
 
 
 
-print("""
-	SUBJECT SUMMARY
-	Subject 1
-	""")
-print(f"Highest scoring student is: Student {subject1_index_of_student_with_highest_score + 1}")
-print(f"Lowest scoring student is: Student {subject1_index_of_student_with_lowest_score + 1}")
-print(f"Total Score is: {subject1_total_score}")
-print(f"Average score is: {subject1_average_score}")
-print(f"Number of passes: {subject1_number_of_passes}")
-print(f"Number of fails: {subject1_number_of_fails}")
 
-print("Subject 2")
-print(f"Highest scoring student is: Student {subject2_index_of_student_with_highest_score + 1}")
-print(f"Lowest scoring student is: Student {subject2_index_of_student_with_lowest_score + 1}")
-print(f"Total Score is: {subject2_total_score}")
-print(f"Average score is: {subject2_average_score}")
-print(f"Number of passes: {subject2_number_of_passes}")
-print(f"Number of fails: {subject2_number_of_fails}")
+
+
+
+
 
 
 
