@@ -35,7 +35,7 @@ function getBillTotal(subTotal, discountAmount, VATAmount){
 }
 
 function getBalance(amountReceived, billTotal){
-	return billTotal - amountReceived;
+	return amountReceived - billTotal;
 }
 
 
