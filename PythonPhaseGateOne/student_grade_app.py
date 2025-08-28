@@ -59,7 +59,7 @@ def get_highest_score_of_subjects(class_scores):
 	subject_max_student = {}
 	for student in class_scores:
 		for subject, score in student.items():
-			if subject not in ['Name', 'Total', 'Average', 'Position']:
+			if subject not in ['Total', 'Average', 'Position']:
 				if subject in subject_max:
 					if score > subject_max[subject]:
 						subject_max[subject] = score
@@ -74,7 +74,7 @@ def get_smallest_score_of_subject1(class_scores):
 	subject_min_student = {}
 	for student in class_scores:
 		for subject, score in student.items():
-			if subject not in ['Name', 'Total', 'Average', 'Position']:
+			if subject not in ['Total', 'Average', 'Position']:
 				if subject in subject_min:
 					if score < subject_min[subject]:
 						subject_min[subject] = score
@@ -113,6 +113,11 @@ class_position_list = get_class_position_of(student1)
 each_student_position = get_student_position(student1, class_position_list)
 print(each_student_position)
 print(get_total_score_of_subjects_in(student1))
+
+
+
+highest_scores, top_scorers = get_highest_score_of_subjects(class_scores)
+
 
 
 
