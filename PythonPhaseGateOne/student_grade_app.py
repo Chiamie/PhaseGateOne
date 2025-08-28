@@ -49,15 +49,6 @@ def get_smallest_score_of_subject1(class_scores):
 			smallest = student['subject1']	
 	return class_scores.index(student)
 
-def get_total_score_of_subject1(class_scores):
-	sum = 0	
-	for student in range(0, len(class_scores)):
-		for key in class_scores[student]:
-			if key == "subject1":
-				sum += class_scores[student][key] 
-		
-	return sum
-
 def get_pass_and_fail_count_of_subject1(class_scores):
 	pass_count = 0
 	fail_count = 0	
@@ -67,6 +58,30 @@ def get_pass_and_fail_count_of_subject1(class_scores):
 		else:
 			fail_count += 1
 	return (pass_count, fail_count)
+
+
+def get_total_score_of_subjects_in(class_scores):
+	subject_sums = {}
+	for student in class_scores:
+		for subject, score in student.items():
+			if subject not in ['Name', 'Total', 'Average', 'Position']:
+				if subject in subject_sums:
+					subject_sums[subject] += score
+				else:
+					subject_sums[subject] = score
+	return subject_sums
+
+def get_highest_score_of_subjects(class_scores):
+	largest = 0
+	smallest = -1
+	count = 0	
+	for student in class_scores:
+		if student['subject1'] > largest:
+			largest = student['subject1']	
+	return class_scores.index(student)
+
+
+
 
 
 number_of_students = int(input("Enter the number of students in your class: "))
@@ -92,26 +107,44 @@ for student in range(1, number_of_students + 1):
 	student1.append(storeStudentScores(scores, sum, average))
 	
 print(student1)
-
 class_position_list = get_class_position_of(student1)
 each_student_position = get_student_position(student1, class_position_list)
 print(each_student_position)
-
-index_highest_scoring_student = get_highest_score_of_subject1(each_student_position)
-index_smallest_scoring_student = get_smallest_score_of_subject1(student1)
-subject1_total_score = get_total_score_of_subject1(student1)
-subject1_average_score = subject1_total_score / number_of_students
-number_of_passes, number_of_fails = get_pass_and_fail_count_of_subject1(student1)
+subject_total = get_total_score_of_subjects_in(student1)
 
 
-print(f"Highest scoring student is: Student {index_highest_scoring_student + 1}")
-print(f"Lowest scoring student is: Student {index_smallest_scoring_student + 1}")
+
+
+
+subject1_total_score = subject_total.get('subject1')
+subject2_total_score = 
+
+
+
+
+
+
+
+
+
+print("""
+	SUBJECT SUMMARY
+	Subject 1
+	""")
+print(f"Highest scoring student is: Student {subject1_index_of_student_with_highest_score + 1}")
+print(f"Lowest scoring student is: Student {subject1_index_of_student_with_lowest_score + 1}")
 print(f"Total Score is: {subject1_total_score}")
 print(f"Average score is: {subject1_average_score}")
-print(f"Number of passes: {number_of_passes}")
-print(f"Number of fails: {number_of_fails}")
+print(f"Number of passes: {subject1_number_of_passes}")
+print(f"Number of fails: {subject1_number_of_fails}")
 
-
+print("Subject 2")
+print(f"Highest scoring student is: Student {subject2_index_of_student_with_highest_score + 1}")
+print(f"Lowest scoring student is: Student {subject2_index_of_student_with_lowest_score + 1}")
+print(f"Total Score is: {subject2_total_score}")
+print(f"Average score is: {subject2_average_score}")
+print(f"Number of passes: {subject2_number_of_passes}")
+print(f"Number of fails: {subject2_number_of_fails}")
 
 
 
