@@ -30,18 +30,6 @@ def get_student_position(class_scores, class_position_list):
 				student['Position'] = position
 				position += 1
 	return class_scores
-	
-
-def get_pass_and_fail_count_of_subject1(class_scores):
-	pass_count = 0
-	fail_count = 0	
-	for student in class_scores:
-		if student['subject1'] > 50:
-			pass_count += 1
-		else:
-			fail_count += 1
-	return (pass_count, fail_count)
-
 
 def get_total_score_of_subjects_in(class_scores):
 	subject_sums = {}
@@ -56,33 +44,51 @@ def get_total_score_of_subjects_in(class_scores):
 
 def get_highest_score_of_subjects(class_scores):
 	subject_max = {}
-	subject_max_student = {}
-	for student in class_scores:
+	subject_max_index = {}
+	for number in range(len(class_scores)):
+		student = class_scores[number]
 		for subject, score in student.items():
 			if subject not in ['Total', 'Average', 'Position']:
 				if subject in subject_max:
 					if score > subject_max[subject]:
 						subject_max[subject] = score
-						subject_max_student[subject] = student
-					else:
-						subject_max[subject] = score
-						subject_max_student[subject] = student
-	return subject_max, subject_max_student
+						subject_max_index[subject] = number
+				else:
+					subject_max[subject] = score
+					subject_max_index[subject] = number
+					
+	return subject_max, subject_max_index	
 
-def get_smallest_score_of_subject1(class_scores):
+def get_smallest_score_of_subjects(class_scores):
 	subject_min = {}
-	subject_min_student = {}
-	for student in class_scores:
+	subject_min_index = {}
+	for number in range(len(class_scores)):
+		student = class_scores[number]
 		for subject, score in student.items():
 			if subject not in ['Total', 'Average', 'Position']:
 				if subject in subject_min:
 					if score < subject_min[subject]:
 						subject_min[subject] = score
-						subject_min_student[subject] = student
-					else:
-						subject_min[subject] = score
-						subject_min_student[subject] = student
-	return subject_min, subject_min_student
+						subject_min_index[subject] = number
+				else:
+					subject_min[subject] = score
+					subject_min_index[subject] = number
+	return subject_min, subject_min_index
+
+def get_pass_and_fail_count_of_subjects(class_scores):
+	performance_count = {}
+	pass_count = 0
+	fail_count = 0	
+	for student in class_scores:
+		for subject, score in student.items():
+			if subject not in ['Total', 'Average', 'Position']:
+				if subject not in performance_count:
+					performance_count[subject] = {'pass': 0, 'fail': 0}
+				if score > 50:
+					performance_count[subject]['pass'] += 1 
+				else:
+					performance_count[subject]['fail'] += 1
+	return performance_count
 
 
 
@@ -99,6 +105,10 @@ for student in range(1, number_of_students + 1):
 	for subject in range(1, number_of_subjects + 1):
 		print(f"Entering score for student {student} ")
 		score = int(input(f"Enter score for subject {subject} " ))
+		while score < 0 or score > 100:
+			print("Incorrect input")
+			print(f"Entering score for student {student} ")
+			score = int(input(f"Enter score for subject {subject} " ))
 		sum += score
 
 		print("Saving >>>>>>>>>>>>>>>>>>>>>>")
@@ -108,32 +118,14 @@ for student in range(1, number_of_students + 1):
 	average = sum / number_of_subjects
 	student1.append(storeStudentScores(scores, sum, average))
 	
-print(student1)
 class_position_list = get_class_position_of(student1)
 each_student_position = get_student_position(student1, class_position_list)
-print(each_student_position)
-print(get_total_score_of_subjects_in(student1))
 
 
 
-highest_scores, top_scorers = get_highest_score_of_subjects(class_scores)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+total_subject_score = get_total_score_of_subjects_in(student1)
+highest_scores, top_scorer_indices = get_highest_score_of_subjects(student1)
+lowest_scores, low_scorer_indices = get_smallest_score_of_subjects(student1)
 
 
 
@@ -144,9 +136,34 @@ for row in each_student_position:
 
 
 
+print("SUBJECT SUMMARY")
+
+for number in range(number_of_subjects):
+	print(f"Subject {number + 1}")
+	print(f"Highest scoring student is: Student {list(top_scorer_indices.values())[number] + 1} scoring {list(highest_scores.values())[number]}")
+	print(f"Lowest scoring student is: Student {list(low_scorer_indices.values())[number] + 1} scoring {list(lowest_scores.values())[number]}")
+	print(f"Total Score is: {list(total_subject_score.values())[number]}")
+	print(f"Average score is: {(list(total_subject_score.values())[number]) / number_of_students}")
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	
+
+
+
 
 
 
